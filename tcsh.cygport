@@ -1,0 +1,24 @@
+NAME="tcsh"
+VERSION=6.18.02
+RELEASE=1
+CATEGORY="Shells"
+SUMMARY="An enhanced version of csh, the C shell"
+DESCRIPTION="Tcsh is an enhanced but completely compatible version of csh, the C
+shell.  Tcsh is a command language interpreter which can be used both as an
+interactive login shell and as a shell script command processor. Tcsh includes
+a command line editor, programmable word completion, spelling correction, a
+history mechanism, job control and a C language like syntax."
+HOMEPAGE="http://www.tcsh.org/Welcome"
+SRC_URI="ftp://ftp.astron.com/pri/tcsh-${VERSION}.tar.gz"
+
+src_compile() {
+        cd ${B}
+        cygconf --bindir=/bin
+        cygmake
+}
+src_install() {
+        cd ${B}
+        make install.cygwin DESTDIR=${D}
+        dosym tcsh.exe /bin/csh
+        dosym tcsh.1 /usr/share/man/man1/csh.1
+}
